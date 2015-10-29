@@ -1,41 +1,29 @@
-Feature:
-  As a user
-  I want to filter search results
-  To spend less time on searching for specific product
+@Suite
+Feature: Filter search results
+  As user
+  I want to filter the search results
+  So that did not have long to find the right product
 
-  @MaxAndMinPriceScenario
-  Scenario Outline:
-    Given I am on the "http://pn.com.ua" site
-    When I choose "<category>" as products category
-    And I choose "<subcategory>" as products subcategory
-    And I set maximum price to "<maxPrice>"
-    And I set minimum price to "<minPrice>"
-    Then I see correct result
+  Background:
+    Given I am on start page
+    When I select category
 
+  Scenario Outline: Check filter by price
+    And I set minimum and maximum prices
+    Then I see results matching search parameters "<min>" and "<max>"
     Examples:
-      | category   | subcategory           | minPrice | maxPrice |
-      | Компьютеры | Настольные компьютеры | 3000     | 6000     |
-      | Авто       | Мотоциклы             | 20000    | 40000    |
+      |   min  |   max  |
+      | 100000 | 150000 |
 
-  @ManufacturerScenario
-  Scenario:
-    Given I am on the "http://pn.com.ua" site
-    When I choose "Компьютеры" as products category
-    And I choose "Настольные компьютеры" as products subcategory
-    And I choose "ASUS" as manufacturer
-    Then I see that products quantity equals to one mentioned on the page
+  Scenario: Check filter by manufacturer name
+    And I select manufacturer
+    Then the number of products equals to the number next to the manufacturer
+    And product names begin with the selected products
 
-  @CheapestProductSearch
-  Scenario Outline:
-    Given  I am on the "http://pn.com.ua" site
-    When I choose "<category>" as products category
-    And I choose "<subcategory>" as products subcategory
-    And I sort products by price
-    And I get the cheapest product's name
-    And I search that product by name
-    Then I see that product
 
-    Examples:
-      | category   | subcategory           |
-      | Компьютеры | Настольные компьютеры |
-      | Авто       | Мотоциклы             |
+#  Scenario: Check search by product name
+#    And I sort product by price
+#    And I get the name of the cheapest product
+#    And enter product name into the search field and submit
+#    Then Search Results Page has 1 product
+#    And product name is equal to specified name

@@ -34,4 +34,6 @@ public class MainPage extends AbstractPage {
     public WebElement getCarCategory() {
         return carCategory;
     }
+
+
 }

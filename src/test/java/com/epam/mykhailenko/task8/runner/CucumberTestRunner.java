@@ -10,8 +10,8 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(tags = {},
         format = {"pretty", "html:target/cucumber-report/cucumber.html"},
-        glue = "core/stepdefs",
-        features = "features")
+        glue = "com.epam.mykhailenko.task8.tests",
+        features = "features/")
 public class CucumberTestRunner {
 
 }
